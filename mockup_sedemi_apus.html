@@ -16,6 +16,8 @@
   Exportar genera un .xlsx real (zip y XML escritos a mano), con fórmulas entre hojas.
   Archivo autocontenido: sin CDN ni fuentes externas. Estado en localStorage de este navegador; "Reiniciar" lo borra.
   Marca SEDEMI: rojo #E0002A solo para acentos; botones en gris carbón.
+  Versión del cliente. ARCHIVO GENERADO por generar_version_cliente.py desde la versión para presentar:
+  no se edita a mano. Los cambios se hacen en la versión para presentar y se vuelve a generar este archivo.
 -->
 <style>
   :root {
@@ -300,8 +302,8 @@
   .stk .mo { background: var(--c-ele); }
   .stk .ma { background: var(--red); }
   .stk .tr { background: var(--c-mec); }
-  .lg { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 11.5px; color: var(--muted); }
-  .lg i { display: inline-block; width: 9px; height: 9px; margin-right: 4px; border-radius: 2px; vertical-align: -1px; }
+  div.lg { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 11.5px; color: var(--muted); }
+  div.lg i { display: inline-block; width: 9px; height: 9px; margin-right: 4px; border-radius: 2px; vertical-align: -1px; }
 
   /* ---------- Bloques ---------- */
   .bgrid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
@@ -711,7 +713,7 @@ function receive(role) {
   UI_KEYS.forEach((k) => { keep[k] = S[k]; });
   S = Object.assign(load(), keep);
   if (S.apuSel && !apuById(S.apuSel)) S.apuSel = null;
-  render();
+  render(true); // sin guardar: guardar volvería a avisar a la otra pestaña y se rebotarían sin fin
   toast('La oferta se actualizó desde otra pestaña' + (role ? ' (' + role + ')' : '') + '.');
 }
 if (BC) BC.onmessage = (e) => { if (e.data && e.data.from !== TAB) receive(e.data.role); };
